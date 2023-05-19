@@ -34,11 +34,13 @@ class Channel:
 
     @classmethod
     def get_service(cls):
+        """Возвращает объект для работы с Youtube"""
         return cls.channel_id
 
     def to_json(self, json_file):
         """Сохраняет значения атрибутов в файл"""
         with open(json_file, 'w') as file:
+            #`добавляю все атрибуты по отдельности кроме channel_info
             data = {}
             data['channel_id'] = self.__channel_id
             data['title'] = self.title
