@@ -1,5 +1,4 @@
 import json
-import os
 
 from googleapiclient.discovery import build
 
@@ -7,8 +6,7 @@ class Channel:
     """Класс для ютуб-канала"""
 
     # Создаем переменную с ключом
-    # api_key: str = 'AIzaSyClKcu7w5bGUAq45OwsdpdXes7q7vLtLvQ'
-    api_key: str = os.environ.get('YT_API_KEY')
+    api_key: str = 'AIzaSyClKcu7w5bGUAq45OwsdpdXes7q7vLtLvQ'
 
     # Создаем объект для работы с API
     youtube = build('youtube', 'v3', developerKey=api_key)
