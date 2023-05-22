@@ -1,4 +1,5 @@
 import json
+import os
 
 from googleapiclient.discovery import build
 
@@ -6,7 +7,7 @@ class Channel:
     """Класс для ютуб-канала"""
 
     # Создаем переменную с ключом
-    api_key: str = 'AIzaSyClKcu7w5bGUAq45OwsdpdXes7q7vLtLvQ'
+    api_key: str = os.getenv('YT_API_KEY')
 
     # Создаем объект для работы с API
     youtube = build('youtube', 'v3', developerKey=api_key)
@@ -22,6 +23,29 @@ class Channel:
         self.subscribers_count = self.channel_info['items'][0]['statistics']['subscriberCount']
         self.video_count = self.channel_info['items'][0]['statistics']['videoCount']
         self.total_views = self.channel_info['items'][0]['statistics']['viewCount']
+
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        return int(self.subscribers_count) + int(other.subscribers_count)
+
+    def __sub__(self, other):
+        return int(self.subscribers_count) - int(other.subscribers_count)
+
+    def __gt__(self, other):
+        return int(self.subscribers_count) > int(other.subscribers_count)
+
+    def __ge__(self, other):
+        return int(self.subscribers_count) >= int(other.subscribers_count)
+
+    def __lt__(self, other):
+        return int(self.subscribers_count) < int(other.subscribers_count)
+
+    def __le__(self, other):
+        return int(self.subscribers_count) <= int(other.subscribers_count)
+
+
 
 
     def print_info(self) -> None:
@@ -52,14 +76,3 @@ class Channel:
             data['video_count'] = self.video_count
             data['total_views'] = self.total_views
             json.dump(data, file, indent=1)
-
-
-
-
-
-
-
-
-
-
-
