@@ -12,7 +12,6 @@ class Channel:
     # Создаем объект для работы с API
     youtube = build('youtube', 'v3', developerKey=api_key)
 
-
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
@@ -44,8 +43,6 @@ class Channel:
 
     def __le__(self, other):
         return int(self.subscribers_count) <= int(other.subscribers_count)
-
-
 
 
     def print_info(self) -> None:
