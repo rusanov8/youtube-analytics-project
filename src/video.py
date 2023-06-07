@@ -9,16 +9,24 @@ class Video:
     youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, video_id):
-        self.__video_id = video_id
+        try:
+            self.__video_id = video_id
 
-        self.video_response = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+            self.video_response = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
                                                     id=self.video_id
                                                     ).execute()
 
-        self.title = self.video_response['items'][0]['snippet']['title']
-        self.url = 'https://youtu.be/' + self.__video_id
-        self.views_count = self.video_response['items'][0]['statistics']['viewCount']
-        self.likes_count = self.video_response['items'][0]['statistics']['likeCount']
+            self.title = self.video_response['items'][0]['snippet']['title']
+            self.url = 'https://youtu.be/' + self.__video_id
+            self.views_count = self.video_response['items'][0]['statistics']['viewCount']
+            self.likes_count = self.video_response['items'][0]['statistics']['likeCount']
+
+        except Exception:
+            self.title = None
+            self.likes_count = None
+            self.url = None
+            self.views_count= None
+
 
     @property
     def video_id(self):
@@ -32,5 +40,4 @@ class PLVideo(Video):
     def __init__(self, video_id, playlist_id):
         super().__init__(video_id)
         self.playlist_id = playlist_id
-
 
