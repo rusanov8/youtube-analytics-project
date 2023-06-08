@@ -25,7 +25,9 @@ class Video:
             self.title = None
             self.likes_count = None
             self.url = None
-            self.views_count= None
+            self.views_count = None
+        finally:
+            self.__video_id = video_id
 
 
     @property
@@ -41,3 +43,6 @@ class PLVideo(Video):
         super().__init__(video_id)
         self.playlist_id = playlist_id
 
+
+broken_video = Video('broken_video_id')
+print(broken_video.video_id)
